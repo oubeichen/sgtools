@@ -20,9 +20,12 @@ window.nbsgft.KEY_FILTER = 'nbsgft-filter';
 // Toggle class 'nbsgft-hide' on entry to contorl hide or show
 window.nbsgft.runFilter = function() {
   $('div.giveaway__row-inner-wrap').each(function() {
-    var appid = $(this).find('div.giveaway__summary > h2.giveaway__heading > a.giveaway__icon').first().attr("href").substring(30);
-    var isHide = nbsgft.filter.indexOf(appid) !== -1;
-    $(this).toggleClass('nbsgft-hide', isHide);
+    var icon = $(this).find('div.giveaway__summary > h2.giveaway__heading > a.giveaway__icon').first().attr("href");
+	if(icon != undefined){
+       var appid = icon.substring(30);
+       var isHide = nbsgft.filter.indexOf(appid) !== -1;
+       $(this).toggleClass('nbsgft-hide', isHide);
+	}
   });
 }
 
@@ -142,17 +145,23 @@ window.nbsgft.addLinks = function() {
   // Add 'Hide' link
   $('div.giveaway__row-inner-wrap > div.giveaway__summary > h2.giveaway__heading').each(function() {
     if($(this).children('.nbsgft-hide-link').length === 0) {
-      var appid = $(this).children('a.giveaway__icon').first().attr("href").substring(30);
-      $(this).append('<span class="nbsgft-hide-link" data-title="' + appid + '">Hide</span>');
+	  var icon = $(this).children('a.giveaway__icon').first().attr("href");
+	  if(icon != undefined){
+         var appid = icon.substring(30);
+         $(this).append('<span class="nbsgft-hide-link" data-title="' + appid + '">Hide</span>');
+	  }
     }
   });
   
   // Add 'Unhide' link
   $('div.giveaway__row-inner-wrap').each(function() {
     if($(this).children('.nbsgft-unhide-link').length === 0) {
-      var appid = $(this).find('div.giveaway__summary > h2.giveaway__heading > a.giveaway__icon').first().attr("href").substring(30);
-     var title = $(this).find('div.giveaway__summary > h2.giveaway__heading > a').first().html();
-      $(this).append('<div class="nbsgft-unhide-link" data-title="' + appid + '">' + title + ' (Click to unhide)</div>');
+	 var icon = $(this).find('div.giveaway__summary > h2.giveaway__heading > a.giveaway__icon').first().attr("href");
+	 if(icon != undefined){
+          var appid = icon.substring(30);
+          var title = $(this).find('div.giveaway__summary > h2.giveaway__heading > a').first().html();
+          $(this).append('<div class="nbsgft-unhide-link" data-title="' + appid + '">' + title + ' (Click to unhide)</div>');
+	  }
     }
   });
   
